@@ -12,6 +12,13 @@ const (
 	TypeSpeci
 )
 
+const (
+	// UnitStatuteMiles indicates distance is measured in SM (Only used in USA)
+	UnitStatuteMiles = iota
+	// UnitMeters indicates distance is measured in Meters
+	UnitMeters
+)
+
 // Type is either METAR os SPECI.
 type Type int8
 
@@ -41,6 +48,9 @@ type Wind interface {
 	Gust() (int, error)
 }
 
+// DistanceUnit indicates the unit of measurement used to represent visibility distance
+type DistanceUnit string
+
 // Visibility describes the visibility conditions of the report.
 type Visibility interface {
 	// Cavok (Cloud And Visibility OK) indicates that the following conditions are observed
@@ -50,7 +60,9 @@ type Visibility interface {
 	//   - No cumulonimbus or towering cumulus at any level.
 	//   - No significant weather condition.
 	Cavok() bool
+	// Distance may be given in Statue
 	Distance() int
+	DistanceUnit()
 	Runway() struct {
 		Threshold int
 	}
