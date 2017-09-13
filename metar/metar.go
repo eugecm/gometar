@@ -19,6 +19,23 @@ const (
 	UnitMeters
 )
 
+const (
+	WeatherPatches = iota
+	WeatherBlowing
+	WeatherDrifting
+	WeatherFreezing
+	WeatherShallow
+	WeatherPartial
+	WeatherShowers
+	WeatherThunderstorm
+)
+
+const (
+	WeatherIntensityLight = iota
+	WeatherIntensityModerate
+	WeatherIntensityHeavy
+)
+
 // Type is either METAR os SPECI.
 type Type int8
 
@@ -32,42 +49,33 @@ type DateTime time.Time
 type Auto bool
 
 // Wind describes the wind conditions of the report.
-type Wind interface {
-	// Direction returns the direction of the wind in degrees from true north, or an error if
-	// the direction is unknown.
-	Direction() (int, error)
-	// IsVariable determines whether the wind direction varies by more than 60 degrees.
-	IsVariable() bool
-	// Variance returns the starting and ending direction of the wind variance.
-	Variance() (int, int)
-	// Speed is the mean value of the speed during the sampling period (aprox 10 minutes).
-	Speed() int
-	// Gust returns the maximum wind speed measured during the sampling period. If the maximum
-	// wind speed does not exceed the mean wind speed by more than 10 knots, error will be set
-	// to true indicating that there is no gust.
-	Gust() (int, error)
+type Wind struct {
+	Direction struct {
+		// Variable indicates that the direction cannot be determined.
+		Variable bool
+		// Source of the wind in degrees from true north.
+		Source int
+	}
+	Variance struct {
+		From int
+		To   int
+	}
+	// Speed is the mean value for speed (in knots) observed in the sampling period.
+	Speed int
+	// Gust is the maximum speed measured in the sampling period.
+	Gust int
 }
 
 // DistanceUnit indicates the unit of measurement used to represent visibility distance
 type DistanceUnit string
 
 // Visibility describes the visibility conditions of the report.
-type Visibility interface {
-	// Cavok (Cloud And Visibility OK) indicates that the following conditions are observed
-	// simultaneously:
-	//   - Visibility of 10Km or more.
-	//   - No clouds below 5000ft or highest minimum sector altitude. Whichever is greater.
-	//   - No cumulonimbus or towering cumulus at any level.
-	//   - No significant weather condition.
-	Cavok() bool
-	// Distance may be given in Statue
-	Distance() int
-	DistanceUnit()
-	Runway() struct {
-		Threshold int
-	}
-	Weather() string
-	Cloud() string
+type Visibility struct {
+	Cavok           bool
+	Distance        int
+	RunwayThreshold int
+	Weather
+	Cloud
 }
 type Temperature interface {
 	Temperature() int
