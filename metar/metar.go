@@ -1,5 +1,5 @@
 /*
-Package metar includes abstractions to help parse METAR strings.
+Package metar includes abstractions to represent meteorological reports.
 */
 package metar
 
