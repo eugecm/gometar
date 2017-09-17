@@ -24,6 +24,7 @@ type Report struct {
 	// Visibility describes the visibility conditions of the report.
 	Visibility VisibilityGroup
 
+	// RunwayVisualRange gives information about the visibility on the runway
 	RunwayVisualRange RunwayVisualRangeGroup
 
 	Weather WeatherGroup
