@@ -15,6 +15,13 @@ const (
 	TypeSpeci
 )
 
+type SpeedUnit int
+
+const (
+	SpeedUnitKnots SpeedUnit = iota
+	SpeedUnitMetersPerSecond
+)
+
 type VisibilityUnit int
 
 const (
@@ -159,9 +166,11 @@ type Report struct {
 		// substantially
 		VarianceTo int
 
-		// Speed is the mean value for speed (in knots) observed in the sampling
-		// period.
-		Speed int
+		// Speed is the mean value for speed observed in the sampling period.
+		Speed struct {
+			Speed int
+			Unit  SpeedUnit
+		}
 
 		// Gust is the maximum speed measured in the sampling period.
 		Gust int
