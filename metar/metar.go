@@ -123,6 +123,13 @@ const (
 	CloudTypeAltocumulusCastellanus
 )
 
+type PressureUnit int
+
+const (
+	PressureUnitHectoPascals PressureUnit = iota
+	PressureUnitInchesOfMercury
+)
+
 type Report struct {
 	// Station is the ICAO location indicator that this report describes.
 	Station string
@@ -200,7 +207,10 @@ type Report struct {
 		DewPoint    int
 	}
 
-	Pressure int
+	Pressure struct {
+		Qnh  int
+		Unit PressureUnit
+	}
 
 	Supplementary struct {
 		RecentWeather string
