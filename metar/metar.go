@@ -157,7 +157,7 @@ type Report struct {
 	RunwayVisualRange struct {
 		Runway     string
 		Visibility VisibilityUnit
-		Modifier
+		Modifier   VisibilityModifier
 	}
 
 	Weather struct {
