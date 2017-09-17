@@ -103,6 +103,26 @@ const (
 	WeatherOtherPhenDuststorm
 )
 
+type CloudAmount int
+
+const (
+	CloudAmountFew CloudAmount = iota
+	CloudAmountScattered
+	CloudAmountBroken
+	CloudAmountOvercast
+	CloudAmountNilSignificant
+	CloudAmountNilDetected
+)
+
+type CloudType int
+
+const (
+	CloudTypeNone CloudType = iota
+	CloudTypeToweringCumulus
+	CloudTypeCumulonimbusOrashowerThunderstorm
+	CloudTypeAltocumulusCastellanus
+)
+
 type Report struct {
 	// Station is the ICAO location indicator that this report describes.
 	Station string
@@ -166,6 +186,13 @@ type Report struct {
 		Obscuration   WeatherObscuration
 		Other         WeatherOtherPhen
 		Vecinity      bool
+	}
+
+	Clouds []struct {
+		Amount CloudAmount
+		// Height is how high the cloud is from the airfield (in feet)
+		Height int
+		Type   CloudType
 	}
 
 	Temperature struct {
