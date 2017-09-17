@@ -183,7 +183,8 @@ type Report struct {
 
 	RunwayVisualRange struct {
 		Runway     string
-		Visibility VisibilityUnit
+		Unit       VisibilityUnit
+		Visibility float32
 		Modifier   VisibilityModifier
 	}
 
