@@ -52,7 +52,8 @@ const (
 type WeatherDescriptor int
 
 const (
-	WeatherDescriptorShallow WeatherDescriptor = iota
+	WeatherDescriptorNone WeatherDescriptor = iota
+	WeatherDescriptorShallow
 	WeatherDescriptorPartial
 	WeatherDescriptorPatches
 	WeatherDescriptorLowDrifting
@@ -65,7 +66,8 @@ const (
 type WeatherPrecipitation int
 
 const (
-	WeatherPrecipitationDrizzle WeatherPrecipitation = iota
+	WeatherPrecipitationNone WeatherPrecipitation = iota
+	WeatherPrecipitationDrizzle
 	WeatherPrecipitationRain
 	WeatherPrecipitationSnow
 	WeatherPrecipitationSnowGrains
@@ -79,7 +81,8 @@ const (
 type WeatherObscuration int
 
 const (
-	WeatherObscurationMist WeatherObscuration = iota
+	WeatherObscurationNone WeatherObscuration = iota
+	WeatherObscurationMist
 	WeatherObscurationFog
 	WeatherObscurationSmoke
 	WeatherObscurationVolcanicAsh
@@ -92,7 +95,8 @@ const (
 type WeatherOtherPhen int
 
 const (
-	WeatherOtherPhenWellDevelopedDustSandWhirls WeatherOtherPhen = iota
+	WeatherOtherPhenNone WeatherOtherPhen = iota
+	WeatherOtherPhenWellDevelopedDustSandWhirls
 	WeatherOtherPhenSqualls
 	WeatherOtherPhenFunnelCloudTornadoWaterspout
 	WeatherOtherPhenSandstorm
