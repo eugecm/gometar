@@ -1,10 +1,13 @@
 package wind
 
-type SpeedUnit int
+// SpeedUnit is the type of unit used to measure the speed in METAR
+type SpeedUnit string
 
 const (
-	SpeedUnitKnots SpeedUnit = iota
-	SpeedUnitMetersPerSecond
+	// SpeedUnitKnots = Knots (KN)
+	SpeedUnitKnots SpeedUnit = "KN"
+	// SpeedUnitMetersPerSecond = M/s
+	SpeedUnitMetersPerSecond = "MPS"
 )
 
 // WindGroup gives wind information for a METAR
