@@ -38,3 +38,7 @@ type WindGroup struct {
 	// Gust is the maximum speed measured in the sampling period.
 	Gust int
 }
+
+type WindParser interface {
+	Parse(string) (WindGroup, error)
+}
