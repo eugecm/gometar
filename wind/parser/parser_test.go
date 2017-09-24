@@ -4,6 +4,32 @@ import (
 	"testing"
 )
 
+func TestWindVariable(t *testing.T) {
+	var cases = []struct {
+		input    string
+		expected bool
+	}{
+		{"00000KT", false},
+		{"VRB01MPS", true},
+		{"20005KT", false},
+		{"05004KT", false},
+	}
+
+	parser := New()
+
+	for _, c := range cases {
+		group, err := parser.Parse(c.input)
+		if err != nil {
+			t.Error(err)
+			t.Fail()
+		}
+		if group.Variable != c.expected {
+			t.Errorf("expected variable to be %v, got %v", c.expected, group.Variable)
+			t.Fail()
+		}
+	}
+}
+
 func TestWindSource(t *testing.T) {
 	var cases = []struct {
 		input    string
