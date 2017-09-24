@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestSource(t *testing.T) {
+func TestWindSource(t *testing.T) {
 	var cases = []struct {
 		input    string
 		expected int
