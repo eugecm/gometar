@@ -38,9 +38,11 @@ func New() wind.WindParser {
 func (w *WParser) Parse(input string) (wind.Group, error) {
 	matches := w.groupRegexp.FindStringSubmatch(input)
 
-	// get variable component
+	// get variable component (depends on source)
 	variable := false
-	if matches[1] == "VRB" {
+	if matches[1] == "" {
+		return wind.Group{}, oops("could not parse source")
+	} else if matches[1] == "VRB" {
 		variable = true
 	}
 
