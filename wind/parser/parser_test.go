@@ -56,6 +56,8 @@ func TestWindSource(t *testing.T) {
 	}
 }
 
+//TODO: test for error handling
+
 func BenchmarkWindParsing(b *testing.B) {
 	cases := []string{
 		"29008KT",
