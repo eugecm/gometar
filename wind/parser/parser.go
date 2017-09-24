@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
@@ -48,7 +49,7 @@ func (w *WParser) Parse(input string) (wind.Group, error) {
 	if !variable { // source is only given in non-variable reports
 		sourceInt, err := strconv.Atoi(matches[1])
 		if err != nil {
-			return wind.Group{}, err
+			return wind.Group{}, oops("could not parse source")
 		}
 		source = sourceInt
 	}
@@ -57,4 +58,8 @@ func (w *WParser) Parse(input string) (wind.Group, error) {
 		Variable: variable,
 		Source:   source,
 	}, nil
+}
+
+func oops(msg string) error {
+	return fmt.Errorf("WParser: %v\n", msg)
 }
