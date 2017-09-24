@@ -3,7 +3,11 @@ Package metar includes abstractions to represent meteorological reports.
 */
 package metar
 
-import "time"
+import (
+	"time"
+
+	"github.com/eugecm/wind"
+)
 
 // Report is a meteorological report at an airfield (METAR)
 type Report struct {
@@ -17,7 +21,7 @@ type Report struct {
 	Auto bool
 
 	// Wind describes wind conditions such as speed and direction.
-	Wind WindGroup
+	Wind wind.Group
 
 	// Cavok indicates Cloud and Visbility OK. If set to true then Visibility
 	// RunwayVisualRange, Weather and Cloud sections can be ignored.

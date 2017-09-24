@@ -10,8 +10,8 @@ const (
 	SpeedUnitMetersPerSecond = "MPS"
 )
 
-// WindGroup gives wind information for a METAR
-type WindGroup struct {
+// Group gives wind information for a METAR
+type Group struct {
 
 	// Variable indicates that the direction cannot be determined.
 	Variable bool
@@ -40,5 +40,5 @@ type WindGroup struct {
 }
 
 type WindParser interface {
-	Parse(string) (WindGroup, error)
+	Parse(string) (Group, error)
 }

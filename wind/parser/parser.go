@@ -9,6 +9,6 @@ func New() wind.WindParser {
 	return &WParser{}
 }
 
-func (w *WParser) Parse(input string) (wind.WindGroup, error) {
-	return wind.WindGroup{}, nil
+func (w *WParser) Parse(input string) (wind.Group, error) {
+	return wind.Group{}, nil
 }
