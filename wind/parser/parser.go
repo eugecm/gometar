@@ -11,8 +11,8 @@ import (
 
 var groupRegexps = []string{
 	`(?P<source>VRB|[0-9]{3})`,
-	`(?P<gust>[0-9]{2}G)?`,
 	`(?P<speed>[0-9]{2})`,
+	`(?P<gust>G[0-9]{2})?`,
 	`(?P<unit>KT|MPS)`,
 	`( `,
 	`(?P<varifrom>[0-9]{3})V(?P<varito>[0-9]{3})`,
@@ -74,11 +74,12 @@ func (w *WParser) Parse(input string) (wind.Group, error) {
 
 	// get speed component
 	var speed wind.Speed
-	if matches[3] == "" || matches[4] == "" {
+	fmt.Printf("%#v\n", matches)
+	if matches[2] == "" || matches[4] == "" {
 		return wind.Group{}, oops("could not parse wind speed")
 	}
 
-	rawSpeed, err := strconv.Atoi(matches[3])
+	rawSpeed, err := strconv.Atoi(matches[2])
 	if err != nil {
 		return wind.Group{}, oops("could not parse wind speed")
 	}
@@ -90,12 +91,23 @@ func (w *WParser) Parse(input string) (wind.Group, error) {
 	}
 	speed.Unit = unit
 
+	// get gust component
+	var gust int
+	if matches[3] != "" {
+		gustI, err := strconv.Atoi(matches[3][1:len(matches[3])])
+		if err != nil {
+			return wind.Group{}, oops("couldn't parse gust speed")
+		}
+		gust = gustI
+	}
+
 	return wind.Group{
 		Variable:     variable,
 		Source:       source,
 		VarianceFrom: varianceFrom,
 		VarianceTo:   varianceTo,
 		Speed:        speed,
+		Gust:         gust,
 	}, nil
 }
 
