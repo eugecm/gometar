@@ -65,7 +65,7 @@ func TestWindVariance(t *testing.T) {
 	}{
 		{"20005KT 130V260", []int{130, 260}},
 		{"13016KT 100V160", []int{100, 160}},
-		{"17008KT", []int{0, 0}},
+		{"34015G25KT", []int{0, 0}},
 		{"11005MPS 080V140", []int{80, 140}},
 	}
 
@@ -99,7 +99,7 @@ func TestWindSpeed(t *testing.T) {
 	}{
 		{"10003MPS 060V120", wind.Speed{Speed: 3, Unit: wind.SpeedUnitMetersPerSecond}},
 		{"35004KT", wind.Speed{Speed: 4, Unit: wind.SpeedUnitKnots}},
-		{"28010KT", wind.Speed{Speed: 10, Unit: wind.SpeedUnitKnots}},
+		{"28010G21KT", wind.Speed{Speed: 10, Unit: wind.SpeedUnitKnots}},
 		{"00000KT", wind.Speed{Speed: 0, Unit: wind.SpeedUnitKnots}},
 		{"36004KT", wind.Speed{Speed: 4, Unit: wind.SpeedUnitKnots}},
 	}
@@ -118,6 +118,32 @@ func TestWindSpeed(t *testing.T) {
 	}
 }
 
+func TestWindGust(t *testing.T) {
+	var cases = []struct {
+		input    string
+		expected int
+	}{
+		{"19020G26KT", 26},
+		{"34015G25KT", 25},
+		{"09004KT", 0},
+		{"14002MPS 100V180", 0},
+	}
+
+	parser := New()
+	for _, c := range cases {
+		group, err := parser.Parse(c.input)
+		if err != nil {
+			t.Error(err)
+			t.Fail()
+		}
+		if group.Gust != c.expected {
+			t.Errorf("expected gust to be %v, got %v", c.expected, group.Gust)
+			t.Fail()
+		}
+	}
+}
+
+//TODO: check if we can get regex groups by name
 //TODO: test for error handling
 //TODO: fix expectation failure messages
 func BenchmarkWindParsing(b *testing.B) {
