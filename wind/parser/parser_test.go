@@ -56,6 +56,39 @@ func TestWindSource(t *testing.T) {
 	}
 }
 
+func TestWindVariance(t *testing.T) {
+	var cases = []struct {
+		input    string
+		expected []int
+	}{
+		{"20005KT 130V260", []int{130, 260}},
+		{"13016KT 100V160", []int{100, 160}},
+		{"17008KT", []int{0, 0}},
+		{"11005MPS 080V140", []int{80, 140}},
+	}
+
+	parser := New()
+
+	for _, c := range cases {
+		group, err := parser.Parse(c.input)
+		expectedFrom := c.expected[0]
+		expectedTo := c.expected[1]
+
+		if err != nil {
+			t.Error(err)
+			t.Fail()
+		}
+		if group.VarianceFrom != expectedFrom {
+			t.Errorf("expected VarianceFrom to be %v, got %v", group.VarianceFrom, expectedFrom)
+			t.Fail()
+		}
+		if group.VarianceTo != expectedTo {
+			t.Errorf("expected VarianceTo to be %v, got %v", group.VarianceTo, expectedTo)
+			t.Fail()
+		}
+	}
+}
+
 //TODO: test for error handling
 
 func BenchmarkWindParsing(b *testing.B) {
