@@ -56,9 +56,27 @@ func (w *WParser) Parse(input string) (wind.Group, error) {
 		source = sourceInt
 	}
 
+	// get variance component
+	var varianceFrom, varianceTo int
+	if matches[5] != "" {
+		vFrom, err := strconv.Atoi(matches[6])
+		if err != nil {
+			return wind.Group{}, oops("could not parse variance")
+		}
+		varianceFrom = vFrom
+
+		vTo, err := strconv.Atoi(matches[7])
+		if err != nil {
+			return wind.Group{}, oops("could not parse variance")
+		}
+		varianceTo = vTo
+	}
+
 	return wind.Group{
-		Variable: variable,
-		Source:   source,
+		Variable:     variable,
+		Source:       source,
+		VarianceFrom: varianceFrom,
+		VarianceTo:   varianceTo,
 	}, nil
 }
 
