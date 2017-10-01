@@ -4,11 +4,19 @@ package wind
 type SpeedUnit string
 
 const (
-	// SpeedUnitKnots = Knots (KN)
-	SpeedUnitKnots SpeedUnit = "KN"
+	// SpeedUnitKnots = Knots (KT)
+	SpeedUnitKnots SpeedUnit = "KT"
 	// SpeedUnitMetersPerSecond = M/s
 	SpeedUnitMetersPerSecond = "MPS"
 )
+
+// Speed represents wind speed value and unit
+type Speed struct {
+	// Speed is the velocity of the wind
+	Speed int
+	// Unit is the unit used for measuring the speed
+	Unit SpeedUnit
+}
 
 // Group gives wind information for a METAR
 type Group struct {
@@ -30,10 +38,7 @@ type Group struct {
 	VarianceTo int
 
 	// Speed is the mean value for speed observed in the sampling period.
-	Speed struct {
-		Speed int
-		Unit  SpeedUnit
-	}
+	Speed Speed
 
 	// Gust is the maximum speed measured in the sampling period.
 	Gust int
