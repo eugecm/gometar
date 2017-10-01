@@ -19,13 +19,13 @@ var groupRegexps = []string{
 	`)?`,
 }
 
-// WParser is an implementation of WindParser
+// WParser is an implementation of wind.Parser
 type WParser struct {
 	groupRegexp *regexp.Regexp
 }
 
 // New creates an instance of WParser
-func New() wind.WindParser {
+func New() wind.Parser {
 	groupRegexpString := strings.Join(groupRegexps, "")
 	groupRegexp := regexp.MustCompile(groupRegexpString)
 

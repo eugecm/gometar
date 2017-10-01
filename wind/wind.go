@@ -44,7 +44,7 @@ type Group struct {
 	Gust int
 }
 
-// WindParser is an interface for parsers that return wind.Group information
-type WindParser interface {
+// Parser is an interface for parsers that return wind.Group information
+type Parser interface {
 	Parse(string) (Group, error)
 }
