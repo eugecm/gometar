@@ -81,11 +81,11 @@ func TestWindVariance(t *testing.T) {
 			t.Fail()
 		}
 		if group.VarianceFrom != expectedFrom {
-			t.Errorf("expected VarianceFrom to be %v, got %v", group.VarianceFrom, expectedFrom)
+			t.Errorf("expected VarianceFrom to be %v, got %v", expectedFrom, group.VarianceFrom)
 			t.Fail()
 		}
 		if group.VarianceTo != expectedTo {
-			t.Errorf("expected VarianceTo to be %v, got %v", group.VarianceTo, expectedTo)
+			t.Errorf("expected VarianceTo to be %v, got %v", expectedTo, group.VarianceTo)
 			t.Fail()
 		}
 	}
@@ -145,7 +145,6 @@ func TestWindGust(t *testing.T) {
 
 //TODO: check if we can get regex groups by name
 //TODO: test for error handling
-//TODO: fix expectation failure messages
 func BenchmarkWindParsing(b *testing.B) {
 	cases := []string{
 		"29008KT",
