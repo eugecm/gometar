@@ -63,5 +63,5 @@ func (w *WParser) Parse(input string) (wind.Group, error) {
 }
 
 func oops(msg string) error {
-	return fmt.Errorf("WParser: %v\n", msg)
+	return fmt.Errorf("wparser: %v", msg)
 }
