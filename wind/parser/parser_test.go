@@ -143,8 +143,6 @@ func TestWindGust(t *testing.T) {
 	}
 }
 
-//TODO: check if we can get regex groups by name
-//TODO: test for error handling
 func BenchmarkWindParsing(b *testing.B) {
 	cases := []string{
 		"29008KT",

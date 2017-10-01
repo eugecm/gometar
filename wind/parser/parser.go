@@ -36,6 +36,7 @@ func New() wind.Parser {
 // and builds a corresponding wind.Group (or an error if the wind information
 // could not be parsed
 func (w *WParser) Parse(input string) (wind.Group, error) {
+	//TODO: Move each component to its own function?
 	matches := w.groupRegexp.FindStringSubmatch(input)
 
 	// get variable component (depends on source)
