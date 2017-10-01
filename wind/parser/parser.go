@@ -72,11 +72,30 @@ func (w *WParser) Parse(input string) (wind.Group, error) {
 		varianceTo = vTo
 	}
 
+	// get speed component
+	var speed wind.Speed
+	if matches[3] == "" || matches[4] == "" {
+		return wind.Group{}, oops("could not parse wind speed")
+	}
+
+	rawSpeed, err := strconv.Atoi(matches[3])
+	if err != nil {
+		return wind.Group{}, oops("could not parse wind speed")
+	}
+	speed.Speed = rawSpeed
+
+	unit := wind.SpeedUnit(matches[4])
+	if unit != wind.SpeedUnitKnots && unit != wind.SpeedUnitMetersPerSecond {
+		return wind.Group{}, oops("could not parse wind unit")
+	}
+	speed.Unit = unit
+
 	return wind.Group{
 		Variable:     variable,
 		Source:       source,
 		VarianceFrom: varianceFrom,
 		VarianceTo:   varianceTo,
+		Speed:        speed,
 	}, nil
 }
 
