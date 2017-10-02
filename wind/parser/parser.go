@@ -75,7 +75,6 @@ func (w *WParser) Parse(input string) (wind.Group, error) {
 
 	// get speed component
 	var speed wind.Speed
-	fmt.Printf("%#v\n", matches)
 	if matches[2] == "" || matches[4] == "" {
 		return wind.Group{}, oops("could not parse wind speed")
 	}
