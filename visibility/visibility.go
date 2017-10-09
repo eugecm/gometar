@@ -32,12 +32,9 @@ const (
 
 // Visibility describes the visibility conditions of the report.
 type Group struct {
-	Distance   string
-	Unit       VisibilityUnit
-	Modifier   VisibilityModifier
-	ToDistance int
-	ToModifier VisibilityModifier
-	Trend      VisibilityTrend
+	Distance string
+	Unit     VisibilityUnit
+	Modifier VisibilityModifier
 }
 
 type Parser interface {
