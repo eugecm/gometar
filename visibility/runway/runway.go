@@ -1,15 +1,17 @@
 package runway
 
-type RunwayVisualRangeGroup struct {
+import "github.com/eugecm/gometar/visibility"
+
+// Group represents the Runway Visual Range information part of the report
+type Group struct {
 	Runway     string
-	Unit       VisibilityUnit
-	Visibility float32
-	// Modifier is used for expressing bounds within a distance
-	// measurement. Examples: 3000 meters OR MORE, 3/4 Statute miles OR
-	// LESS etc.
-	Modifier VisibilityModifier
+	Visibility visibility.Group
+	Variable   visibility.Group
+	Trend      visibility.Trend
 }
 
+// Parser is an abstraction of entities that can parse Runway Visual Range
+// strings from a METAR
 type Parser interface {
-	Parse(s string) (RunwayVisualRangeGroup, error)
+	Parse(s string) (Group, error)
 }
