@@ -22,23 +22,23 @@ func New() visibility.Parser {
 	return &VisibilityParser{groupRegexp: groupRegexp}
 }
 
-func (v *VisibilityParser) Parse(s string) (VisibilityGroup, error) {
+func (v *VisibilityParser) Parse(s string) (Group, error) {
 
 	matches := v.groupRegexp.FindStringSubmatch(s)
 
 	// get unit
 	unit := visibility.UnitMeters
 	if matches[2] == "" {
-		return VisibilityGroup{}, oops("could not determine visibility unit")
+		return Group{}, oops("could not determine visibility unit")
 	}
 
 	// get distance
 	distance := 0
 	if matches[1] == "" {
-		return visibility.VisibilityGroup{}, oops("could not determine distance")
+		return visibility.Group{}, oops("could not determine distance")
 	}
 
-	return visibility.VisibilityGroup{}, nil
+	return visibility.Group{}, nil
 }
 
 func oops(msg string) error {
