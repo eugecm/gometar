@@ -9,6 +9,8 @@ const (
 	UnitStatuteMiles Unit = iota
 	// UnitMeters indicates distance is measured in Meters
 	UnitMeters
+	// UnitFeet indicates distance is measued in Feet
+	UnitFeet
 )
 
 // Modifier indicates the visibility range of the report
