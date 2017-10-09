@@ -32,7 +32,7 @@ const (
 
 // Visibility describes the visibility conditions of the report.
 type Group struct {
-	Distance   int
+	Distance   string
 	Unit       VisibilityUnit
 	Modifier   VisibilityModifier
 	ToDistance int

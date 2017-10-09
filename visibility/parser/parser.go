@@ -1,18 +1,20 @@
 package parser
 
 import (
-	"github.com/eugecm/gometar/visibility"
-	"rexep"
+	"fmt"
+	"regexp"
 	"strings"
+
+	"github.com/eugecm/gometar/visibility"
 )
 
 var groupRegexps = []string{
-	`(?P<visibility>[0-9]{4}|M?[0-9/]{1,4})`,
-	`(?P<unit>M|SM)`,
+	`M?(?P<visibility>[0-9 /]{1,4})`,
+	`(?P<unit>SM)?`,
 }
 
 type VisibilityParser struct {
-	groupRegexp *rexep.Regexp
+	groupRegexp *regexp.Regexp
 }
 
 func New() visibility.Parser {
@@ -22,23 +24,25 @@ func New() visibility.Parser {
 	return &VisibilityParser{groupRegexp: groupRegexp}
 }
 
-func (v *VisibilityParser) Parse(s string) (Group, error) {
+func (v *VisibilityParser) Parse(s string) (visibility.Group, error) {
 
 	matches := v.groupRegexp.FindStringSubmatch(s)
 
 	// get unit
 	unit := visibility.UnitMeters
-	if matches[2] == "" {
-		return Group{}, oops("could not determine visibility unit")
+	if matches[2] == "SM" {
+		unit = visibility.UnitStatuteMiles
 	}
 
 	// get distance
-	distance := 0
+	distance := ""
 	if matches[1] == "" {
 		return visibility.Group{}, oops("could not determine distance")
 	}
 
-	return visibility.Group{}, nil
+	distance = matches[1]
+
+	return visibility.Group{Distance: distance, Unit: unit}, nil
 }
 
 func oops(msg string) error {
