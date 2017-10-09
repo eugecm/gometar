@@ -9,7 +9,7 @@ import (
 )
 
 var groupRegexps = []string{
-	`M?(?P<visibility>[0-9 /]{1,4})`,
+	`(?P<visibility>M?[0-9 /]{1,4})`,
 	`(?P<unit>SM)?`,
 }
 
@@ -38,11 +38,20 @@ func (v *VisibilityParser) Parse(s string) (visibility.Group, error) {
 	distance := ""
 	if matches[1] == "" {
 		return visibility.Group{}, oops("could not determine distance")
+	} else if strings.HasPrefix(matches[1], "M") {
+		distance = matches[1][1:]
+	} else {
+		distance = matches[1]
 	}
 
-	distance = matches[1]
+	modifier := visibility.VisibilityModifierExactly
+	if matches[1] == "9999" || matches[1] == "15" {
+		modifier = visibility.VisibilityModifierOrMore
+	} else if strings.HasPrefix(matches[1], "M") {
+		modifier = visibility.VisibilityModifierOrLess
+	}
 
-	return visibility.Group{Distance: distance, Unit: unit}, nil
+	return visibility.Group{Distance: distance, Unit: unit, Modifier: modifier}, nil
 }
 
 func oops(msg string) error {

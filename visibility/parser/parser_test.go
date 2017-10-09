@@ -39,3 +39,33 @@ func TestParserDistance(t *testing.T) {
 
 	}
 }
+
+func TestParserModifier(t *testing.T) {
+	cases := []struct {
+		input            string
+		expectedModifier visibility.VisibilityModifier
+	}{
+		{"10SM", visibility.VisibilityModifierExactly},
+		{"M1/4SM", visibility.VisibilityModifierOrLess},
+		{"9999", visibility.VisibilityModifierOrMore},
+		{"15SM", visibility.VisibilityModifierOrMore},
+	}
+
+	p := New()
+	for _, c := range cases {
+
+		group, err := p.Parse(c.input)
+
+		if err != nil {
+			t.Error(err)
+			t.Fail()
+		}
+
+		if group.Modifier != c.expectedModifier {
+			t.Errorf("expected modifier for %v to be %v, got %v instead", c.input, c.expectedModifier, group.Modifier)
+			t.Fail()
+		}
+
+	}
+
+}
