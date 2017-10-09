@@ -1,42 +1,50 @@
 package visibility
 
-// VisibilityUnit is the measurement unit used for expressing visibility
+// Unit is the measurement unit used for expressing visibility
 // distance
-type VisibilityUnit int
+type Unit int
 
 const (
 	// UnitStatuteMiles indicates distance is measured in SM (Only used in USA)
-	UnitStatuteMiles VisibilityUnit = iota
+	UnitStatuteMiles Unit = iota
 	// UnitMeters indicates distance is measured in Meters
 	UnitMeters
 )
 
-// VisibilityModifier indicates the visibility range of the report
-type VisibilityModifier int
+// Modifier indicates the visibility range of the report
+type Modifier int
 
 const (
-	VisibilityModifierOrLess VisibilityModifier = iota
-	VisibilityModifierExactly
-	VisibilityModifierOrMore
+	// ModifierOrLess indicates measured distance could be lower
+	ModifierOrLess Modifier = iota
+	// ModifierExactly indicates measured distance is accurate
+	ModifierExactly
+	// ModifierOrMore indicates measured distance could be higher
+	ModifierOrMore
 )
 
-// VisibilityTrend indicates the trend of the visibility
-type VisibilityTrend int
+// Trend indicates the trend of the visibility (up, down, nil)
+type Trend int
 
 const (
-	VisibilityTrendUp VisibilityTrend = iota
-	VisibilityTrendDown
-	VisibilityTrendNil
-	VisibilityTrendNotProvided
+	// TrendUp indicates distance is increasing
+	TrendUp Trend = iota
+	// TrendDown indicates distance is decreasing
+	TrendDown
+	// TrendNil indicates distance is not changing
+	TrendNil
+	// TrendNotProvided indicates trend was not specified
+	TrendNotProvided
 )
 
-// Visibility describes the visibility conditions of the report.
+// Group describes the visibility conditions of the report.
 type Group struct {
 	Distance string
-	Unit     VisibilityUnit
-	Modifier VisibilityModifier
+	Unit     Unit
+	Modifier Modifier
 }
 
+// Parser is an abstraction of an object that can parse Visibility strings
 type Parser interface {
 	Parse(s string) (Group, error)
 }

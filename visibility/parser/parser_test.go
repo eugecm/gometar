@@ -10,7 +10,7 @@ func TestParserDistance(t *testing.T) {
 	cases := []struct {
 		input            string
 		expectedDistance string
-		expectedUnit     visibility.VisibilityUnit
+		expectedUnit     visibility.Unit
 	}{
 		{"10SM", "10", visibility.UnitStatuteMiles},
 		{"M1/4SM", "1/4", visibility.UnitStatuteMiles},
@@ -43,12 +43,12 @@ func TestParserDistance(t *testing.T) {
 func TestParserModifier(t *testing.T) {
 	cases := []struct {
 		input            string
-		expectedModifier visibility.VisibilityModifier
+		expectedModifier visibility.Modifier
 	}{
-		{"10SM", visibility.VisibilityModifierExactly},
-		{"M1/4SM", visibility.VisibilityModifierOrLess},
-		{"9999", visibility.VisibilityModifierOrMore},
-		{"15SM", visibility.VisibilityModifierOrMore},
+		{"10SM", visibility.ModifierExactly},
+		{"M1/4SM", visibility.ModifierOrLess},
+		{"9999", visibility.ModifierOrMore},
+		{"15SM", visibility.ModifierOrMore},
 	}
 
 	p := New()

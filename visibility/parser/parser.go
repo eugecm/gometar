@@ -44,11 +44,11 @@ func (v *VisibilityParser) Parse(s string) (visibility.Group, error) {
 		distance = matches[1]
 	}
 
-	modifier := visibility.VisibilityModifierExactly
+	modifier := visibility.ModifierExactly
 	if matches[1] == "9999" || matches[1] == "15" {
-		modifier = visibility.VisibilityModifierOrMore
+		modifier = visibility.ModifierOrMore
 	} else if strings.HasPrefix(matches[1], "M") {
-		modifier = visibility.VisibilityModifierOrLess
+		modifier = visibility.ModifierOrLess
 	}
 
 	return visibility.Group{Distance: distance, Unit: unit, Modifier: modifier}, nil
