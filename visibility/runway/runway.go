@@ -6,6 +6,7 @@ import "github.com/eugecm/gometar/visibility"
 type Group struct {
 	Runway     string
 	Visibility visibility.Group
+	IsVariable bool
 	Variable   visibility.Group
 	Trend      visibility.Trend
 }
