@@ -112,6 +112,7 @@ func TestParser(t *testing.T) {
 				t.Fail()
 			}
 		})
+
 		t.Run(fmt.Sprint("trend of ", c.input), func(t *testing.T) {
 			if grp.Trend != c.expected.Trend {
 				t.Errorf("is not %#v (got %#v)", c.expected.Trend, grp.Trend)

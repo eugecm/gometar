@@ -19,10 +19,12 @@ var groupRegexps = []string{
 	`(FT)?`,
 }
 
+// RunwayParser parses RunwayVisualRange strings from METARs
 type RunwayParser struct {
 	groupRegexp *regexp.Regexp
 }
 
+// New returns a RunwayParser
 func New() runway.Parser {
 	groupRegexpString := strings.Join(groupRegexps, "")
 	groupRegexp := regexp.MustCompile(groupRegexpString)
@@ -30,6 +32,7 @@ func New() runway.Parser {
 	return &RunwayParser{groupRegexp: groupRegexp}
 }
 
+// Parse builds a runway.Group from a Runway Visual Range METAR string
 func (r *RunwayParser) Parse(s string) (runway.Group, error) {
 	matches := r.groupRegexp.FindStringSubmatch(s)
 
