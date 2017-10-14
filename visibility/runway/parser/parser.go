@@ -1,17 +1,20 @@
 package parser
 
 import (
+	"fmt"
 	"regexp"
+	"strings"
 
+	"github.com/eugecm/gometar/visibility"
 	"github.com/eugecm/gometar/visibility/runway"
 )
 
 var groupRegexps = []string{
-	`R(?P<runway>[0-9]{2}(L|C|R)?)/`,
+	`R(?P<runway>[0-9]{2}[LCR]?)/`,
 	`(?P<modifier>M|P)?`,
 	`(?P<visibility>[0-9]{4})`,
 	`(FT)?`,
-	`(?P<variable>V(M|P)?[0-9]{4})?`,
+	`(?P<variable>V[MP]?[0-9]+)?`,
 	`(?P<tendency>U|D|N)?`,
 	`(FT)?`,
 }
@@ -27,13 +30,13 @@ func New() runway.Parser {
 	return &RunwayParser{groupRegexp: groupRegexp}
 }
 
-func (r *RunwayParser) Parse(runway.Group, error) {
-	matches := v.groupRegexp.FindStringSubmatch(s)
+func (r *RunwayParser) Parse(s string) (runway.Group, error) {
+	matches := r.groupRegexp.FindStringSubmatch(s)
 
 	// get runway
-	runway := matches[1]
-	if runway == "" {
-		return Group{}, oops("could not parse runway threshold")
+	rwy := matches[1]
+	if rwy == "" {
+		return runway.Group{}, oops("could not parse runway threshold")
 	}
 
 	// get modifier
@@ -47,7 +50,8 @@ func (r *RunwayParser) Parse(runway.Group, error) {
 	// get distance
 	distance := matches[3]
 	if distance == "" {
-		return Group{}, oops("could not parse distance")
+		fmt.Printf("%#v\n", matches)
+		return runway.Group{}, oops("could not parse distance")
 	}
 
 	// get unit
@@ -57,17 +61,21 @@ func (r *RunwayParser) Parse(runway.Group, error) {
 	}
 
 	// get variable
-	variableDistance = ""
-	variableModifier = visibility.ModifierExactly
+	variableDistance := ""
+	variableModifier := visibility.ModifierExactly
+	variableUnit := visibility.UnitUnknown
 	if matches[5] != "" {
-		if matches[5][1] == "M" {
+		if matches[5][1] == 'M' {
 			variableModifier = visibility.ModifierOrLess
 			variableDistance = matches[5][2:]
-		} else if matches[5][1] == "P" {
+			variableUnit = unit
+		} else if matches[5][1] == 'P' {
 			variableModifier = visibility.ModifierOrMore
 			variableDistance = matches[5][2:]
+			variableUnit = unit
 		} else {
 			variableDistance = matches[5][1:]
+			variableUnit = unit
 		}
 	}
 
@@ -84,16 +92,17 @@ func (r *RunwayParser) Parse(runway.Group, error) {
 		trend = visibility.TrendNotProvided
 	}
 
-	g := Group{
-		Runway: runway,
+	g := runway.Group{
+		Runway: rwy,
 		Visibility: visibility.Group{
 			Distance: distance,
 			Unit:     unit,
 			Modifier: modifier,
 		},
+		IsVariable: variableDistance != "",
 		Variable: visibility.Group{
 			Distance: variableDistance,
-			Unit:     unit,
+			Unit:     variableUnit,
 			Modifier: variableModifier,
 		},
 		Trend: trend,
