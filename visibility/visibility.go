@@ -5,8 +5,10 @@ package visibility
 type Unit int
 
 const (
+	// UnitUnknown indicates that the unit is unknown or not supported
+	UnitUnknown Unit = iota
 	// UnitStatuteMiles indicates distance is measured in SM (Only used in USA)
-	UnitStatuteMiles Unit = iota
+	UnitStatuteMiles
 	// UnitMeters indicates distance is measured in Meters
 	UnitMeters
 	// UnitFeet indicates distance is measued in Feet
@@ -17,10 +19,10 @@ const (
 type Modifier int
 
 const (
-	// ModifierOrLess indicates measured distance could be lower
-	ModifierOrLess Modifier = iota
 	// ModifierExactly indicates measured distance is accurate
-	ModifierExactly
+	ModifierExactly Modifier = iota
+	// ModifierOrLess indicates measured distance could be lower
+	ModifierOrLess
 	// ModifierOrMore indicates measured distance could be higher
 	ModifierOrMore
 )
@@ -29,14 +31,14 @@ const (
 type Trend int
 
 const (
+	// TrendNotProvided indicates trend was not specified
+	TrendNotProvided = iota
 	// TrendUp indicates distance is increasing
-	TrendUp Trend = iota
+	TrendUp
 	// TrendDown indicates distance is decreasing
 	TrendDown
 	// TrendNil indicates distance is not changing
 	TrendNil
-	// TrendNotProvided indicates trend was not specified
-	TrendNotProvided
 )
 
 // Group describes the visibility conditions of the report.
