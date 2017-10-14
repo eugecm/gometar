@@ -32,6 +32,30 @@ func New() runway.Parser {
 	return &RunwayParser{groupRegexp: groupRegexp}
 }
 
+func translateModifier(modifier string) visibility.Modifier {
+	switch modifier {
+	case "M":
+		return visibility.ModifierOrLess
+	case "P":
+		return visibility.ModifierOrMore
+	default:
+		return visibility.ModifierExactly
+	}
+}
+
+func translateTrend(trend string) visibility.Trend {
+	switch trend {
+	case "U":
+		return visibility.TrendUp
+	case "D":
+		return visibility.TrendDown
+	case "N":
+		return visibility.TrendNil
+	default:
+		return visibility.TrendNotProvided
+	}
+}
+
 // Parse builds a runway.Group from a Runway Visual Range METAR string
 func (r *RunwayParser) Parse(s string) (runway.Group, error) {
 	matches := r.groupRegexp.FindStringSubmatch(s)
@@ -43,12 +67,7 @@ func (r *RunwayParser) Parse(s string) (runway.Group, error) {
 	}
 
 	// get modifier
-	modifier := visibility.ModifierExactly
-	if matches[2] == "M" {
-		modifier = visibility.ModifierOrLess
-	} else if matches[2] == "P" {
-		modifier = visibility.ModifierOrMore
-	}
+	modifier := translateModifier(matches[2])
 
 	// get distance
 	distance := matches[3]
@@ -83,18 +102,9 @@ func (r *RunwayParser) Parse(s string) (runway.Group, error) {
 	}
 
 	// get trend
-	var trend visibility.Trend
-	switch matches[6] {
-	case "U":
-		trend = visibility.TrendUp
-	case "D":
-		trend = visibility.TrendDown
-	case "N":
-		trend = visibility.TrendNil
-	default:
-		trend = visibility.TrendNotProvided
-	}
+	trend := translateTrend(matches[6])
 
+	// build final runway object
 	g := runway.Group{
 		Runway: rwy,
 		Visibility: visibility.Group{
