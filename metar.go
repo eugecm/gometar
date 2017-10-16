@@ -6,7 +6,20 @@ package metar
 import (
 	"time"
 
-	"github.com/eugecm/wind"
+	"github.com/eugecm/gometar/header"
+	"github.com/eugecm/gometar/location"
+	"github.com/eugecm/gometar/metars"
+	"github.com/eugecm/gometar/qnh"
+	"github.com/eugecm/gometar/remarks"
+	"github.com/eugecm/gometar/reporttype"
+	"github.com/eugecm/gometar/sky"
+	"github.com/eugecm/gometar/station"
+	"github.com/eugecm/gometar/supplementary"
+	"github.com/eugecm/gometar/temperature"
+	"github.com/eugecm/gometar/time"
+	"github.com/eugecm/gometar/visibility"
+	"github.com/eugecm/gometar/weather"
+	"github.com/eugecm/gometar/wind"
 )
 
 // Report is a meteorological report at an airfield (METAR)
@@ -28,25 +41,25 @@ type Report struct {
 	Cavok bool
 
 	// Visibility describes the visibility in the sky at the airfield.
-	Visibility VisibilityGroup
+	Visibility visibility.Group
 
 	// RunwayVisualRange gives information about the visibility on the runway
-	RunwayVisualRange RunwayVisualRangeGroup
+	RunwayVisualRange runway.Group
 
 	// Weather describes the weather conditions at (or near) the airfield.
-	Weather WeatherGroup
+	Weather weather.Group
 
 	// Clouds describes the clouds in the sky at different altitudes above
 	// the airfield.
-	Clouds []CloudInformation
+	Clouds []sky.CloudInformation
 
 	// Temperature indicates temperature and dew point information.
-	Temperature TemperatureGroup
+	Temperature temperature.Group
 
 	// Qnh represents the atmospheric pressure adjusted to sea level.
-	Qnh QnhGroup
+	Qnh qnh.Group
 
 	// Remarks contains significant information not covered by the rest of the
 	// METAR.
-	Remarks RemarksGroup
+	Remarks remarks.Group
 }
