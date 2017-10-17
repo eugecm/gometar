@@ -6,18 +6,12 @@ package metar
 import (
 	"time"
 
-	"github.com/eugecm/gometar/header"
-	"github.com/eugecm/gometar/location"
-	"github.com/eugecm/gometar/metars"
 	"github.com/eugecm/gometar/qnh"
 	"github.com/eugecm/gometar/remarks"
-	"github.com/eugecm/gometar/reporttype"
 	"github.com/eugecm/gometar/sky"
-	"github.com/eugecm/gometar/station"
-	"github.com/eugecm/gometar/supplementary"
 	"github.com/eugecm/gometar/temperature"
-	"github.com/eugecm/gometar/time"
 	"github.com/eugecm/gometar/visibility"
+	"github.com/eugecm/gometar/visibility/runway"
 	"github.com/eugecm/gometar/weather"
 	"github.com/eugecm/gometar/wind"
 )
