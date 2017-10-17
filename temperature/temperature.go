@@ -1,6 +1,6 @@
 package temperature
 
-type TemperatureGroup struct {
+type Group struct {
 	Temperature int
 	DewPoint    int
 }

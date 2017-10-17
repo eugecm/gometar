@@ -62,7 +62,7 @@ const (
 	WeatherOtherPhenDuststorm
 )
 
-type WeatherGroup struct {
+type Group struct {
 	Descriptor    WeatherDescriptor
 	Precipitation WeatherPrecipitation
 	Obscuration   WeatherObscuration

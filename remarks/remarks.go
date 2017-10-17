@@ -1,3 +1,3 @@
 package remarks
 
-type RemarksGroup string
+type Group string

@@ -7,7 +7,7 @@ const (
 	PressureUnitInchesOfMercury
 )
 
-type QnhGroup struct {
+type Group struct {
 	Pressure int
 	Unit     PressureUnit
 }
