@@ -62,6 +62,7 @@ const (
 )
 
 type Group struct {
+	Intensity     Intensity
 	Descriptor    Descriptor
 	Precipitation Precipitation
 	Obscuration   Obscuration
