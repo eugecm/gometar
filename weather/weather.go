@@ -1,71 +1,74 @@
 package weather
 
-type WeatherIntensity int
+type Intensity string
 
 const (
-	WeatherIntensityLight WeatherIntensity = iota
-	WeatherIntensityModerate
-	WeatherIntensityHeavy
+	IntensityModerate Intensity = ""
+	IntensityLight              = "-"
+	IntensityHeavy              = "+"
 )
 
-type WeatherDescriptor int
+type Descriptor string
 
 const (
-	WeatherDescriptorNone WeatherDescriptor = iota
-	WeatherDescriptorShallow
-	WeatherDescriptorPartial
-	WeatherDescriptorPatches
-	WeatherDescriptorLowDrifting
-	WeatherDescriptorBlowing
-	WeatherDescriptorShowers
-	WeatherDescriptorThunderstorm
-	WeatherDescriptorFreezing
+	DescriptorNone         Descriptor = ""
+	DescriptorShallow                 = "MI"
+	DescriptorPartial                 = "PR"
+	DescriptorPatches                 = "BC"
+	DescriptorLowDrifting             = "DR"
+	DescriptorBlowing                 = "BL"
+	DescriptorShowers                 = "SH"
+	DescriptorThunderstorm            = "TS"
+	DescriptorFreezing                = "FZ"
 )
 
-type WeatherPrecipitation int
+type Precipitation string
 
 const (
-	WeatherPrecipitationNone WeatherPrecipitation = iota
-	WeatherPrecipitationDrizzle
-	WeatherPrecipitationRain
-	WeatherPrecipitationSnow
-	WeatherPrecipitationSnowGrains
-	WeatherPrecipitationIceCrystals
-	WeatherPrecipitationIcePellets
-	WeatherPrecipitationHail
-	WeatherPrecipitationSmallHailandOrSnowPellets
-	WeatherPrecipitationUnknownPrecipitation
+	PrecipitationNone                      Precipitation = ""
+	PrecipitationDrizzle                                 = "DZ"
+	PrecipitationRain                                    = "RA"
+	PrecipitationSnow                                    = "SN"
+	PrecipitationSnowGrains                              = "SG"
+	PrecipitationIceCrystals                             = "IC"
+	PrecipitationIcePellets                              = "PL"
+	PrecipitationHail                                    = "GR"
+	PrecipitationSmallHailandOrSnowPellets               = "GS"
+	PrecipitationUnknownPrecipitation                    = "UP"
 )
 
-type WeatherObscuration int
+type Obscuration string
 
 const (
-	WeatherObscurationNone WeatherObscuration = iota
-	WeatherObscurationMist
-	WeatherObscurationFog
-	WeatherObscurationSmoke
-	WeatherObscurationVolcanicAsh
-	WeatherObscurationWidespreadDust
-	WeatherObscurationSand
-	WeatherObscurationHaze
-	WeatherObscurationSpray
+	ObscurationNone           Obscuration = ""
+	ObscurationMist                       = "BR"
+	ObscurationFog                        = "FG"
+	ObscurationSmoke                      = "FU"
+	ObscurationVolcanicAsh                = "VA"
+	ObscurationWidespreadDust             = "DU"
+	ObscurationSand                       = "SA"
+	ObscurationHaze                       = "HZ"
+	ObscurationSpray                      = "PY"
 )
 
-type WeatherOtherPhen int
+type OtherPhen string
 
 const (
-	WeatherOtherPhenNone WeatherOtherPhen = iota
-	WeatherOtherPhenWellDevelopedDustSandWhirls
-	WeatherOtherPhenSqualls
-	WeatherOtherPhenFunnelCloudTornadoWaterspout
-	WeatherOtherPhenSandstorm
-	WeatherOtherPhenDuststorm
+	OtherPhenNone                         OtherPhen = ""
+	OtherPhenWellDevelopedDustSandWhirls            = "PO"
+	OtherPhenSqualls                                = "SQ"
+	OtherPhenFunnelCloudTornadoWaterspout           = "FC"
+	OtherPhenSandstormOrDuststorm                   = "SS"
 )
 
 type Group struct {
-	Descriptor    WeatherDescriptor
-	Precipitation WeatherPrecipitation
-	Obscuration   WeatherObscuration
-	Other         WeatherOtherPhen
+	Descriptor    Descriptor
+	Precipitation Precipitation
+	Obscuration   Obscuration
+	Other         OtherPhen
 	Vecinity      bool
+}
+
+type Parser interface {
+	Parse(input string) (Group, error)
 }
