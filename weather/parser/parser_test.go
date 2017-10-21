@@ -2,8 +2,10 @@ package parser
 
 import (
 	"fmt"
-	"github.com/eugecm/gometar/weather"
+	"reflect"
 	"testing"
+
+	"github.com/eugecm/gometar/weather"
 )
 
 func TestWeatherParser(t *testing.T) {
@@ -12,21 +14,72 @@ func TestWeatherParser(t *testing.T) {
 		expected weather.Group
 	}{
 		{"-RADZ", weather.Group{
-			Intensity:     weather.IntensityLight,
-			Descriptor:    weather.DescriptorNone,
-			Precipitation: weather.PrecipitationRain,
-			Obscuration:   weather.ObscurationNone,
-			Other:         weather.OtherPhenNone,
-			Vicinity:      false,
+			Intensity: weather.IntensityLight,
+			Phenomena: []weather.Phenomenon{
+				weather.PhenomenonRain,
+				weather.PhenomenonDrizzle,
+			},
+			Vicinity: false,
 		}},
-		{"-RA BR", weather.Group{}},
-		{"-RA", weather.Group{}},
-		{"+RA", weather.Group{}},
-		{"BR", weather.Group{}},
-		{"SHRA", weather.Group{}},
-		{"DZRA", weather.Group{}},
-		{"VCFG", weather.Group{}},
-		{"HZ", weather.Group{}},
+		{"-RA BR", weather.Group{
+			Intensity: weather.IntensityLight,
+			Phenomena: []weather.Phenomenon{
+				weather.PhenomenonRain,
+				weather.PhenomenonMist,
+			},
+			Vicinity: false,
+		}},
+		{"-RA", weather.Group{
+			Intensity: weather.IntensityLight,
+			Phenomena: []weather.Phenomenon{
+				weather.PhenomenonRain,
+			},
+			Vicinity: false,
+		}},
+		{"+RA", weather.Group{
+			Intensity: weather.IntensityHeavy,
+			Phenomena: []weather.Phenomenon{
+				weather.PhenomenonRain,
+			},
+			Vicinity: false,
+		}},
+		{"BR", weather.Group{
+			Intensity: weather.IntensityModerate,
+			Phenomena: []weather.Phenomenon{
+				weather.PhenomenonMist,
+			},
+			Vicinity: false,
+		}},
+		{"SHRA", weather.Group{
+			Intensity: weather.IntensityModerate,
+			Phenomena: []weather.Phenomenon{
+				weather.PhenomenonShowers,
+				weather.PhenomenonRain,
+			},
+			Vicinity: false,
+		}},
+		{"DZRA", weather.Group{
+			Intensity: weather.IntensityModerate,
+			Phenomena: []weather.Phenomenon{
+				weather.PhenomenonDrizzle,
+				weather.PhenomenonRain,
+			},
+			Vicinity: false,
+		}},
+		{"VCFG", weather.Group{
+			Intensity: weather.IntensityModerate,
+			Phenomena: []weather.Phenomenon{
+				weather.PhenomenonFog,
+			},
+			Vicinity: true,
+		}},
+		{"HZ", weather.Group{
+			Intensity: weather.IntensityModerate,
+			Phenomena: []weather.Phenomenon{
+				weather.PhenomenonHaze,
+			},
+			Vicinity: false,
+		}},
 	}
 
 	p := New()
@@ -46,39 +99,15 @@ func TestWeatherParser(t *testing.T) {
 			}
 		})
 
-		testName := fmt.Sprintf("descritor of %v is %v", c.input, c.expected.Descriptor)
+		testName = fmt.Sprintf("phenomena of %v is %v", c.input, c.expected.Phenomena)
 		t.Run(testName, func(t *testing.T) {
-			if group.Descriptor != c.expected.Descriptor {
-				t.Errorf("expected %v but got %v", c.expected.Descriptor, group.Descriptor)
+			if !reflect.DeepEqual(group.Phenomena, c.expected.Phenomena) {
+				t.Errorf("expected %v but got %v", c.expected.Phenomena, group.Phenomena)
 				t.FailNow()
 			}
 		})
 
-		testName := fmt.Sprintf("precipitation of %v is %v", c.input, c.expected.Precipitation)
-		t.Run(testName, func(t *testing.T) {
-			if group.Precipitation != c.expected.Precipitation {
-				t.Errorf("expected %v but got %v", c.expected.Precipitation, group.Precipitation)
-				t.FailNow()
-			}
-		})
-
-		testName := fmt.Sprintf("obscuration of %v is %v", c.input, c.expected.Obscuration)
-		t.Run(testName, func(t *testing.T) {
-			if group.Obscuration != c.expected.Obscuration {
-				t.Errorf("expected %v but got %v", c.expected.Obscuration, group.Obscuration)
-				t.FailNow()
-			}
-		})
-
-		testName := fmt.Sprintf("other weather of %v is %v", c.input, c.expected.Other)
-		t.Run(testName, func(t *testing.T) {
-			if group.Other != c.expected.Other {
-				t.Errorf("expected %v but got %v", c.expected.Other, group.Other)
-				t.FailNow()
-			}
-		})
-
-		testName := fmt.Sprintf("vicinity of %v is %v", c.input, c.expected.Vicinity)
+		testName = fmt.Sprintf("vicinity of %v is %v", c.input, c.expected.Vicinity)
 		t.Run(testName, func(t *testing.T) {
 			if group.Vicinity != c.expected.Vicinity {
 				t.Errorf("expected %v but got %v", c.expected.Vicinity, group.Vicinity)
