@@ -45,7 +45,7 @@ const (
 type Group struct {
 	Intensity Intensity
 	Phenomena []Phenomenon
-	Vecinity  bool
+	Vicinity  bool
 }
 
 type Parser interface {
