@@ -51,3 +51,7 @@ type Group struct {
 type Parser interface {
 	Parse(input string) (Group, error)
 }
+
+// BUG(eugeniocanom@gmail.com): Weather groups should not be represented as a
+// list of Phenomena as the codes can form groups depending on the meaning of
+// each code.
