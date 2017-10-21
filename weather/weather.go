@@ -8,66 +8,44 @@ const (
 	IntensityHeavy              = "+"
 )
 
-type Descriptor string
+type Phenomenon string
 
 const (
-	DescriptorNone         Descriptor = ""
-	DescriptorShallow                 = "MI"
-	DescriptorPartial                 = "PR"
-	DescriptorPatches                 = "BC"
-	DescriptorLowDrifting             = "DR"
-	DescriptorBlowing                 = "BL"
-	DescriptorShowers                 = "SH"
-	DescriptorThunderstorm            = "TS"
-	DescriptorFreezing                = "FZ"
-)
-
-type Precipitation string
-
-const (
-	PrecipitationNone                      Precipitation = ""
-	PrecipitationDrizzle                                 = "DZ"
-	PrecipitationRain                                    = "RA"
-	PrecipitationSnow                                    = "SN"
-	PrecipitationSnowGrains                              = "SG"
-	PrecipitationIceCrystals                             = "IC"
-	PrecipitationIcePellets                              = "PL"
-	PrecipitationHail                                    = "GR"
-	PrecipitationSmallHailandOrSnowPellets               = "GS"
-	PrecipitationUnknownPrecipitation                    = "UP"
-)
-
-type Obscuration string
-
-const (
-	ObscurationNone           Obscuration = ""
-	ObscurationMist                       = "BR"
-	ObscurationFog                        = "FG"
-	ObscurationSmoke                      = "FU"
-	ObscurationVolcanicAsh                = "VA"
-	ObscurationWidespreadDust             = "DU"
-	ObscurationSand                       = "SA"
-	ObscurationHaze                       = "HZ"
-	ObscurationSpray                      = "PY"
-)
-
-type OtherPhen string
-
-const (
-	OtherPhenNone                         OtherPhen = ""
-	OtherPhenWellDevelopedDustSandWhirls            = "PO"
-	OtherPhenSqualls                                = "SQ"
-	OtherPhenFunnelCloudTornadoWaterspout           = "FC"
-	OtherPhenSandstormOrDuststorm                   = "SS"
+	PhenomenonShallow                      = "MI"
+	PhenomenonPartial                      = "PR"
+	PhenomenonPatches                      = "BC"
+	PhenomenonLowDrifting                  = "DR"
+	PhenomenonBlowing                      = "BL"
+	PhenomenonShowers                      = "SH"
+	PhenomenonThunderstorm                 = "TS"
+	PhenomenonFreezing                     = "FZ"
+	PhenomenonDrizzle                      = "DZ"
+	PhenomenonRain                         = "RA"
+	PhenomenonSnow                         = "SN"
+	PhenomenonSnowGrains                   = "SG"
+	PhenomenonIceCrystals                  = "IC"
+	PhenomenonIcePellets                   = "PL"
+	PhenomenonHail                         = "GR"
+	PhenomenonSmallHailandOrSnowPellets    = "GS"
+	PhenomenonUnknown                      = "UP"
+	PhenomenonMist                         = "BR"
+	PhenomenonFog                          = "FG"
+	PhenomenonSmoke                        = "FU"
+	PhenomenonVolcanicAsh                  = "VA"
+	PhenomenonWidespreadDust               = "DU"
+	PhenomenonSand                         = "SA"
+	PhenomenonHaze                         = "HZ"
+	PhenomenonSpray                        = "PY"
+	PhenomenonWellDevelopedDustSandWhirls  = "PO"
+	PhenomenonSqualls                      = "SQ"
+	PhenomenonFunnelCloudTornadoWaterspout = "FC"
+	PhenomenonSandstormOrDuststorm         = "SS"
 )
 
 type Group struct {
-	Intensity     Intensity
-	Descriptor    Descriptor
-	Precipitation Precipitation
-	Obscuration   Obscuration
-	Other         OtherPhen
-	Vecinity      bool
+	Intensity Intensity
+	Phenomena []Phenomenon
+	Vecinity  bool
 }
 
 type Parser interface {
