@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/eugecm/gometar/qnh"
-	"github.com/eugecm/gometar/remarks"
 	"github.com/eugecm/gometar/sky"
 	"github.com/eugecm/gometar/temperature"
 	"github.com/eugecm/gometar/visibility"
