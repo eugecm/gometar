@@ -57,3 +57,7 @@ type Report struct {
 	// METAR.
 	Remarks string
 }
+
+type Parser interface {
+	Parse(input string) (Report, error)
+}
