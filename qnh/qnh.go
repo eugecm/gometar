@@ -8,6 +8,10 @@ const (
 )
 
 type Group struct {
-	Pressure int
+	Pressure string
 	Unit     PressureUnit
+}
+
+type Parser interface {
+	Parse(input string) (Group, error)
 }
