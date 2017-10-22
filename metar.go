@@ -55,5 +55,5 @@ type Report struct {
 
 	// Remarks contains significant information not covered by the rest of the
 	// METAR.
-	Remarks remarks.Group
+	Remarks string
 }
