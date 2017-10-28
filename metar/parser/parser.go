@@ -57,6 +57,7 @@ func (p *Parser) Parse(input string) (metar.Report, error) {
 	if err != nil {
 		return metar.Report{}, err
 	}
+	curToken++
 	r.DateTime = t
 
 	r.Auto = tokens[curToken] == "AUTO"
