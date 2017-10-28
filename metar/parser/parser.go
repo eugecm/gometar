@@ -1,4 +1,4 @@
-package main
+package parser
 
 import (
 	"github.com/eugecm/gometar/metar"
@@ -103,6 +103,15 @@ func (p *Parser) Parse(input string) (metar.Report, error) {
 	}
 	r.Visibility = v
 	curToken++
+
+	if strings.Contains(tokens[curToken], "/") { // RVR
+		rvr, err := p.RunwayParser.Parse(tokens[curToken])
+		if err != nil {
+			return metar.Report{}, err
+		}
+		r.RunwayVisualRange = rvr
+		curToken++
+	}
 
 	var wxStrings []string
 	for len(tokens[curToken]) != 6 && tokens[curToken] != "NCD" && tokens[curToken][0:2] != "VV" && tokens[curToken] != "SKC" {
