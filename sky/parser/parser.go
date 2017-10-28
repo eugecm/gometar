@@ -8,7 +8,7 @@ import (
 	"github.com/eugecm/gometar/sky"
 )
 
-var cloudAmountRegexp = `(?P<amount>FEW|SCT|BKN|OVC|NSC|SKC|CLR|VV)(?P<height>[0-9]{3})(?P<cloud>TCU|CB)?`
+var cloudAmountRegexp = `(?P<amount>FEW|SCT|BKN|OVC|NSC|SKC|VV)(?P<height>[0-9]{3})(?P<cloud>TCU|CB)?`
 
 // Parser is an implementation of sky.Parser
 type Parser struct {
@@ -26,6 +26,12 @@ func (p *Parser) getCloudInfo(input string) (sky.CloudInformation, error) {
 	if input == "NSC" {
 		return sky.CloudInformation{
 			Amount: sky.CloudAmountNilSignificant,
+		}, nil
+	}
+
+	if input == "CLR" {
+		return sky.CloudInformation{
+			Amount: sky.CloudAmountClear,
 		}, nil
 	}
 

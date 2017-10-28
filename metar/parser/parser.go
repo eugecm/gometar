@@ -115,7 +115,7 @@ func (p *Parser) Parse(input string) (metar.Report, error) {
 	}
 
 	var wxStrings []string
-	for len(tokens[curToken]) != 6 && tokens[curToken] != "NCD" && tokens[curToken][0:2] != "VV" && tokens[curToken] != "SKC" {
+	for len(tokens[curToken]) != 6 && tokens[curToken] != "NCD" && tokens[curToken][0:2] != "VV" && tokens[curToken] != "SKC" && tokens[curToken] != "CLR" {
 		wxStrings = append(wxStrings, tokens[curToken])
 		curToken++
 	}
