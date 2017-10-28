@@ -70,7 +70,7 @@ func (p *Parser) Parse(input string) (metar.Report, error) {
 
 	if len(tokens[curToken]) == 7 && tokens[curToken][3] == 'V' {
 		windString = windString + " "
-		windString = tokens[curToken]
+		windString = windString + tokens[curToken]
 		curToken++
 	}
 	w, err := p.WindParser.Parse(windString)
