@@ -1,6 +1,27 @@
 # GOMETAR
 
-GOMETAR is a METAR parser written in Go. A METAR is a routine report of meteorological conditions at an aerodrome.
+GOMETAR is a METAR parser written in Go. A METAR is a routine report of
+meteorological conditions at an aerodrome.
+
+It supports International and US-like METARs.
+
+## Example
+```go
+    import (
+        "fmt"
+
+        "github.com/eugecm/gometar/metar/parser
+    )
+
+    p := parser.New()
+    report, _ := p.Parse("EGNM 191750Z 13011KT 1400 R14/P1500 RA BR SCT001 BKN002 13/13 Q0997")
+    fmt.Println(report.Clouds)
+```
+
+## TODO
+* Add support for remarks
+* Add support for TAF
+* Clean up API
 
 # Links
 
