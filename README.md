@@ -10,7 +10,7 @@ It supports International and US-like METARs.
     import (
         "fmt"
 
-        "github.com/eugecm/gometar/metar/parser
+        "github.com/eugecm/gometar/metar/parser"
     )
 
     p := parser.New()
