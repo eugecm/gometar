@@ -1,4 +1,5 @@
 # GOMETAR
+[![Build Status](https://travis-ci.org/eugecm/gometar.svg?branch=master)](https://travis-ci.org/eugecm/gometar)
 
 GOMETAR is a METAR parser written in Go. A METAR is a routine report of
 meteorological conditions at an aerodrome.
