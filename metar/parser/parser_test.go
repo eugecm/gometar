@@ -23,7 +23,7 @@ func TestParser(t *testing.T) {
 	}{
 		{"BKPR 191800Z 00000KT CAVOK 13/06 Q1019 NOSIG", metar.Report{
 			Station:  "BKPR",
-			DateTime: time.Date(2017, 10, 19, 18, 0, 0, 0, time.UTC),
+			DateTime: time.Date(time.Now().Year(), time.Now().Month(), 19, 18, 0, 0, 0, time.UTC),
 			Wind: wind.Group{
 				Speed: wind.Speed{
 					Speed: 0,
@@ -42,7 +42,7 @@ func TestParser(t *testing.T) {
 		}},
 		{"CYVR 191813Z 15011KT 15SM -RA SCT012 BKN053 BKN100 BKN150 11/10 A2948 RMK SC3SC2AC1AC1 VIS NE-E 6 SLP984 DENSITY ALT 100FT", metar.Report{
 			Station:  "CYVR",
-			DateTime: time.Date(2017, 10, 19, 18, 13, 0, 0, time.UTC),
+			DateTime: time.Date(time.Now().Year(), time.Now().Month(), 19, 18, 13, 0, 0, time.UTC),
 			Wind: wind.Group{
 				Source: 150,
 				Speed: wind.Speed{
@@ -88,7 +88,7 @@ func TestParser(t *testing.T) {
 		}},
 		{"KHIB 191753Z AUTO 22007KT 190V250 10SM CLR 16/M02 A2996 RMK AO2 SLP151 T01611022 10161 20017 58005", metar.Report{
 			Station:  "KHIB",
-			DateTime: time.Date(2017, 10, 19, 17, 53, 0, 0, time.UTC),
+			DateTime: time.Date(time.Now().Year(), time.Now().Month(), 19, 17, 53, 0, 0, time.UTC),
 			Auto:     true,
 			Wind: wind.Group{
 				Variable:     false,
@@ -120,7 +120,7 @@ func TestParser(t *testing.T) {
 		}},
 		{"EGNM 191750Z 13011KT 1400 R14/P1500 RA BR SCT001 BKN002 13/13 Q0997", metar.Report{
 			Station:  "EGNM",
-			DateTime: time.Date(2017, 10, 19, 17, 50, 0, 0, time.UTC),
+			DateTime: time.Date(time.Now().Year(), time.Now().Month(), 19, 17, 50, 0, 0, time.UTC),
 			Wind: wind.Group{
 				Source: 130,
 				Speed: wind.Speed{
