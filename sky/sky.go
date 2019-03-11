@@ -11,6 +11,7 @@ const (
 	CloudAmountSkyClear       CloudAmount = "SKC"
 	CloudAmountClear          CloudAmount = "CLR"
 	CloudAmountCannotBeSeen   CloudAmount = "VV"
+	CloudAmountNotDetected    CloudAmount = "NCD"
 )
 
 type CloudType string
