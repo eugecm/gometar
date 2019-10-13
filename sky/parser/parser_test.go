@@ -53,6 +53,25 @@ func TestSkyParser(t *testing.T) {
 				},
 			},
 		},
+		{"NCD",
+			[]sky.CloudInformation{
+				sky.CloudInformation{
+					Amount: sky.CloudAmountNotDetected,
+				},
+			},
+		},
+		{"FEW026/// SCT033///",
+			[]sky.CloudInformation{
+				sky.CloudInformation{
+					Height: "026",
+					Amount: sky.CloudAmountFew,
+				},
+				sky.CloudInformation{
+					Height: "033",
+					Amount: sky.CloudAmountScattered,
+				},
+			},
+		},
 	}
 
 	p := New()

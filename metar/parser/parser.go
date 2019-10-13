@@ -98,14 +98,16 @@ func (p *Parser) Parse(input string) (metar.Report, error) {
 		return r, nil
 	}
 
-	v, err := p.VisibilityParser.Parse(tokens[curToken])
-	if err != nil {
-		return metar.Report{}, err
+	if tokens[curToken] != "////" {
+		v, err := p.VisibilityParser.Parse(tokens[curToken])
+		if err != nil {
+			return metar.Report{}, err
+		}
+		r.Visibility = v
 	}
-	r.Visibility = v
 	curToken++
 
-	if strings.Contains(tokens[curToken], "/") { // RVR
+	if strings.Count(tokens[curToken], "/") == 1 { // RVR
 		rvr, err := p.RunwayParser.Parse(tokens[curToken])
 		if err != nil {
 			return metar.Report{}, err
@@ -114,8 +116,12 @@ func (p *Parser) Parse(input string) (metar.Report, error) {
 		curToken++
 	}
 
+	if tokens[curToken] == "//" {
+		curToken++
+	}
+
 	var wxStrings []string
-	for len(tokens[curToken]) != 6 && tokens[curToken] != "NCD" && tokens[curToken][0:2] != "VV" && tokens[curToken] != "SKC" && tokens[curToken] != "CLR" {
+	for len(strings.TrimSuffix(tokens[curToken],"///")) != 6 && tokens[curToken] != "NCD" && tokens[curToken] != "NSC" && tokens[curToken][0:2] != "VV" && tokens[curToken] != "SKC" && tokens[curToken] != "CLR" {
 		wxStrings = append(wxStrings, tokens[curToken])
 		curToken++
 	}
@@ -129,8 +135,12 @@ func (p *Parser) Parse(input string) (metar.Report, error) {
 		r.Weather = wx
 	}
 
+	if tokens[curToken] == "/////////" {
+		curToken++
+	}
+
 	var skyStrings []string
-	for !strings.Contains(tokens[curToken], "/") {
+	for strings.Count(tokens[curToken], "/") != 1 {
 		skyStrings = append(skyStrings, tokens[curToken])
 		curToken++
 	}
@@ -150,11 +160,13 @@ func (p *Parser) Parse(input string) (metar.Report, error) {
 	curToken++
 	r.Temperature = temp
 
-	pres, err := p.QnhParser.Parse(tokens[curToken])
-	if err != nil {
-		return metar.Report{}, err
+	if tokens[curToken] != "Q////" {
+		pres, err := p.QnhParser.Parse(tokens[curToken])
+		if err != nil {
+			return metar.Report{}, err
+		}
+		r.Qnh = pres
 	}
-	r.Qnh = pres
 
 	return r, nil
 }

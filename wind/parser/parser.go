@@ -10,7 +10,7 @@ import (
 )
 
 var groupRegexps = []string{
-	`(?P<source>VRB|[0-9]{3})`,
+	`(?P<source>VRB|///|[0-9]{3})`,
 	`(?P<speed>[0-9]{2})`,
 	`(?P<gust>G[0-9]{2})?`,
 	`(?P<unit>KT|MPS)`,
@@ -49,7 +49,7 @@ func (w *WParser) Parse(input string) (wind.Group, error) {
 
 	// get source component
 	source := 0
-	if !variable { // source is only given in non-variable reports
+	if !variable && matches[1] != "///" { // source is only given in non-variable reports
 		sourceInt, err := strconv.Atoi(matches[1])
 		if err != nil {
 			return wind.Group{}, oops("could not parse source")
